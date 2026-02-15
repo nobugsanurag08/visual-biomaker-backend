@@ -1,0 +1,31 @@
+{
+  "templateId": "Sky Blossom",
+  "formData": {
+    "generalInfo": {
+      "name": { "value": "Gaurav Mehta" },
+      "Dob": { "value": "15-08-1997" },
+      "profileImage": { "value": "https://4kwallpapers.com/images/walls/thumbs_3t/25220.jpg" },
+      "about": { "value": "" }
+    },
+    "profileDetails": {
+      "Time": { "value": "06:30 PM" },
+      "Birth Place": { "value": "Jaipur" },
+      "Manglik": { "value": "Yes" },
+      "Height": { "value": "5'9\"" },
+      "Education": { "value": "Master of Arts in Literature, Delhi University" },
+      "Profession": { "value": "Content Editor at a leading Publishing House in Mumbai Specializing in academic and creative content (18+ LPA)" },
+      "Hobbies": { "value": "Writing, Painting" },
+      "Languages": { "value": "English, Marathi" }
+    },
+    "family": {
+      "Parents": { "value": "Mr. Rajesh Mehta, Retired Bank Manager / Mrs. Suman Mehta, Homemaker" },
+      "Siblings (Elder)": { "value": "Rohan Mehta, Civil Engineer at L&T Married to Neha Sharma, HR Manager at Infosys / Priya Mehta, Assistant Professor at Delhi University Married to Ankit Verma, Chartered Accountant, New Delhi" },
+      "Grand Parents": { "value": "Late Mr. Mahesh Mehta, Renowned Historian" }
+    },
+    "contacts": {
+      "Mobile": { "value": "+91 9876543210" },
+      "Location": { "value": "Bangalore, Karnataka, India" },
+      "Residence": { "value": "Mumbai, India" }
+    }
+  }
+}
