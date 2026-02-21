@@ -1,6 +1,5 @@
 import type { Request, Response } from 'express';
 import { Router } from 'express';
-import { AppError } from '../middleware/errorHandler';
 import { env } from '../config/index';
 import { formDataToProfileData } from '../services/formDataToProfileData';
 import {
@@ -20,20 +19,22 @@ router.post('/render', async (req: Request, res: Response) => {
   };
 
   if (!templateId || typeof templateId !== 'string') {
-    throw new AppError(400, 'Missing or invalid templateId');
+    res.status(400).json({ error: { message: 'Missing or invalid templateId' } });
+    return;
   }
   if (!formData || typeof formData !== 'object') {
-    throw new AppError(400, 'Missing or invalid formData (JSON object)');
+    res.status(400).json({ error: { message: 'Missing or invalid formData (JSON object)' } });
+    return;
   }
 
   const profileData = formDataToProfileData(formData);
   const supported = getSupportedTemplateIds();
   const normalized = templateId.trim();
   if (!supported.includes(normalized)) {
-    throw new AppError(
-      400,
-      `Unsupported templateId. Supported: ${supported.join(', ')}`
-    );
+    res.status(400).json({
+      error: { message: `Unsupported templateId. Supported: ${supported.join(', ')}` },
+    });
+    return;
   }
 
   try {
@@ -52,12 +53,10 @@ router.post('/render', async (req: Request, res: Response) => {
       msg.includes('socket hang up') ||
       msg.includes('Timeout') ||
       msg.includes('Navigation timeout');
-    throw new AppError(
-      500,
-      isTimeoutOrSocket
-        ? 'Render timed out or connection closed. Try again or use a smaller payload (e.g. default profile image).'
-        : msg || 'Template render failed'
-    );
+    const message = isTimeoutOrSocket
+      ? 'Render timed out or connection closed. Try again or use a smaller payload (e.g. default profile image).'
+      : msg || 'Template render failed';
+    res.status(500).json({ error: { message } });
   }
 });
 

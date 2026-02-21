@@ -12,11 +12,12 @@ body { margin: 0; padding: 0; }
 .template22-container h2 { font-size: 1.3rem; letter-spacing: 0.2rem; font-weight: 200; }
 .template22-container h3 { font-size: 1rem; font-family: "Roboto", sans-serif; }
 .template22-container {
-  white-space: pre-line; font-size: 13px; font-weight: 500; font-family: "Poppins", sans-serif;
+  font-size: 13px; font-weight: 500; font-family: "Poppins", sans-serif;
   display: flex; flex-direction: column; width: 750px; min-height: 1057px; margin: 0;
   border-radius: 10px; background: radial-gradient(circle at 50% 50%, #0f8696, #0d7582, #0a626f);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); color: #ffcd96; position: relative; overflow: hidden;
 }
+.template22-container p, .template22-container .contact-content, .template22-container .details { white-space: pre-line; }
 .template22-container .pattern-overlay {
   position: absolute; top: 0; left: 0; right: 0; bottom: 0;
   background-image: ${u('pattern.png')}; background-repeat: repeat; background-size: 200px 200px;

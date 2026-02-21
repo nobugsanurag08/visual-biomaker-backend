@@ -15,7 +15,8 @@ function getTemplate12Css(): string {
   return `
 html, body { margin: 0; padding: 0; }
 .template12-container * { margin: 0; padding: 0; box-sizing: border-box; }
-.template12-container { white-space: pre-line; font-size: 12px; font-weight: 500; font-family: Poppins, sans-serif; display: flex; flex-direction: column; width: 100%; min-height: 1057px; margin: 0; padding: 0; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); background-color: #ffffff; color: #333; position: relative; }
+.template12-container { font-size: 12px; font-weight: 500; font-family: Poppins, sans-serif; display: flex; flex-direction: column; width: 100%; min-height: 1057px; margin: 0; padding: 0; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); background-color: #ffffff; color: #333; position: relative; }
+.template12-container p, .template12-container .contact-content, .template12-container .details { white-space: pre-line; }
 .template12-container .section-title { text-transform: uppercase; letter-spacing: 0.2rem; font-weight: bold; }
 .template12-container .row { display: flex; flex-direction: row; }
 .template12-container .content { min-height: 1057px; height: 100%; width: 100%; display: flex; }

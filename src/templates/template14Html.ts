@@ -16,7 +16,8 @@ function getTemplate14Css(assetBase: string): string {
   return `
 html, body { margin: 0; padding: 0; }
 .template14-container * { margin: 0; padding: 0; box-sizing: border-box; }
-.template14-container { white-space: pre-line; font-size: 13px; font-weight: 500; font-family: Poppins, sans-serif; display: flex; flex-direction: column; width: 100%; min-height: 1057px; margin: 0; border-radius: 10px; background-color: #33002a; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); color: #ffd38c; position: relative; overflow: hidden; }
+.template14-container { font-size: 13px; font-weight: 500; font-family: Poppins, sans-serif; display: flex; flex-direction: column; width: 100%; min-height: 1057px; margin: 0; border-radius: 10px; background-color: #33002a; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); color: #ffd38c; position: relative; overflow: hidden; }
+.template14-container p, .template14-container .contact-content, .template14-container .details { white-space: pre-line; }
 .template14-container .border-box { overflow: hidden; min-height: 1032px; height: 100%; margin: 0; position: relative; z-index: 5; }
 .template14-container .corner-svg { position: absolute; width: 280px; height: 280px; opacity: 0.9; pointer-events: none; background-image: ${u('star.png')}; background-size: contain; background-repeat: no-repeat; background-position: center; }
 .template14-container .corner-top-left { top: -140px; left: -140px; transform: rotate(0deg); }

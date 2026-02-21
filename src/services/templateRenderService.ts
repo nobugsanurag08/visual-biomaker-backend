@@ -24,7 +24,7 @@ async function getDefaultProfileImageDataUrl(): Promise<string> {
 }
 const RENDER_TIMEOUT_MS = 45000; // Allow more time for slow loads / external images
 const IMAGE_LOAD_TIMEOUT_MS = 15000; // Max wait for images before screenshot
-const POST_IMAGE_DELAY_MS = 800; // Extra delay after images to allow paint
+const POST_IMAGE_DELAY_MS = 250; // Extra delay after images to allow paint (reduced from 800ms for faster API response)
 
 /**
  * Wait for images inside element to load (mirrors FE observeRendering).

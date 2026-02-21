@@ -16,7 +16,8 @@ function getTemplate16Css(assetBase: string): string {
   return `
 html, body { margin: 0; padding: 0; }
 .template16-container * { margin: 0; padding: 0; box-sizing: border-box; }
-.template16-container { white-space: pre-line; font-size: 13px; font-weight: 500; font-family: Poppins, sans-serif; display: flex; flex-direction: column; width: 100%; min-height: 1057px; margin: 0; border-radius: 10px; background-image: ${u('background.jpg')}; background-size: cover; background-position: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); color: #ffffff; position: relative; }
+.template16-container { font-size: 13px; font-weight: 500; font-family: Poppins, sans-serif; display: flex; flex-direction: column; width: 100%; min-height: 1057px; margin: 0; border-radius: 10px; background-image: ${u('background.jpg')}; background-size: cover; background-position: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); color: #ffffff; position: relative; }
+.template16-container p, .template16-container .contact-content, .template16-container .details { white-space: pre-line; }
 .template16-container .border-box { overflow: hidden; min-height: 1032px; height: 100%; margin: 0; position: relative; }
 .template16-container .corner-svg { position: absolute; width: 400px; height: 400px; opacity: 0.5; pointer-events: none; background-image: ${u('phool.svg')}; background-size: contain; background-repeat: no-repeat; background-position: center; }
 .template16-container .corner-top-right { top: -140px; right: -140px; transform: rotate(20deg); }
