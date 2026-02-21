@@ -30,7 +30,8 @@ body { margin: 0; padding: 0; }
 .template1-container h3 { font-size: 1.2rem; }
 .template1-container img { max-width: 100%; height: 100%; }
 .template1-container header { text-align: center; }
-.template1-container { white-space: pre-line; margin: 0; padding: 0; font-size: 13px; font-family: Montserrat, sans-serif; width: 750px; border-radius: 10px; background-color: #f0f0f0; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); overflow: hidden; }
+.template1-container { margin: 0; padding: 0; font-size: 13px; font-family: Montserrat, sans-serif; width: 750px; border-radius: 10px; background-color: #f0f0f0; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); overflow: hidden; }
+.template1-container .content-details, .template1-container .contact-content, .template1-container .bio-details, .template1-container .profile-details { white-space: pre-line; }
 .template1-container .my-row { display: flex; gap: 0rem; }
 .template1-container .contact-row { display: flex; gap: 0.5rem; align-items: center; }
 .template1-container .contact-content { margin: 0.3rem; }

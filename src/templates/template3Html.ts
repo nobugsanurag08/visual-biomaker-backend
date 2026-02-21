@@ -16,7 +16,8 @@ function getTemplate3Css(): string {
 body { margin: 0; padding: 0; }
 .template3-container *, .template3-container *::after, .template3-container *::before { box-sizing: border-box; }
 .template3-container { width: 100%; display: flex; justify-content: center; }
-.template3-container .container { font-family: Montserrat, sans-serif; white-space: pre-line; margin: 0; padding: 0; width: 750px; min-height: 1057px; background: #f6f6f1; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+.template3-container .container { font-family: Montserrat, sans-serif; margin: 0; padding: 0; width: 750px; min-height: 1057px; background: #f6f6f1; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+.template3-container p, .template3-container .contact-content, .template3-container .details, .template3-container .family-items { white-space: pre-line; }
 .template3-container .header { position: relative; text-align: center; }
 .template3-container .header .blue-bar { height: 8rem; display: flex; background: #003366; color: #fff; padding: 20px; margin-bottom: 1rem; font-size: 2rem; justify-content: center; align-items: center; font-weight: bold; }
 .template3-container .header .black-bar { height: 4rem; display: flex; align-items: center; justify-content: center; background: #2b2828; color: #fff; padding: 10px; font-size: 1.3rem; }

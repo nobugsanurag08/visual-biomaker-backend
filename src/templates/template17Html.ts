@@ -16,7 +16,8 @@ function getTemplate17Css(assetBase: string): string {
   return `
 html, body { margin: 0; padding: 0; }
 .template17-container * { margin: 0; padding: 0; box-sizing: border-box; }
-.template17-container { white-space: pre-line; font-size: 13px; font-weight: 500; font-family: Poppins, sans-serif; display: flex; flex-direction: column; width: 100%; min-height: 1057px; margin: 0; border-radius: 10px; background-image: ${u('template17bg.webp')}; background-repeat: no-repeat; background-size: cover; background-position: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); color: #d45e16; position: relative; }
+.template17-container { font-size: 13px; font-weight: 500; font-family: Poppins, sans-serif; display: flex; flex-direction: column; width: 100%; min-height: 1057px; margin: 0; border-radius: 10px; background-image: ${u('template17bg.webp')}; background-repeat: no-repeat; background-size: cover; background-position: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); color: #d45e16; position: relative; }
+.template17-container p, .template17-container .contact-content, .template17-container .details { white-space: pre-line; }
 .template17-container .border-box { overflow: hidden; min-height: 1032px; height: 100%; margin: 0; position: relative; background-color: rgba(255, 255, 255, 0.7); backdrop-filter: blur(4px); }
 .template17-container .star-svg { position: absolute; width: 600px; height: 600px; opacity: 0.3; pointer-events: none; background-size: contain; background-repeat: no-repeat; background-position: center; background-image: ${u('template_17Star.png')}; }
 .template17-container .star-svg.left-center { left: -450px; transform: translateY(250px); }

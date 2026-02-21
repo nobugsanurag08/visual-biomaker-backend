@@ -25,11 +25,12 @@ body { margin: 0; padding: 0; }
 .template21-container h2 { font-size: 1.3rem; letter-spacing: 0.2rem; font-weight: 200; }
 .template21-container h3 { font-size: 1rem; font-family: "Roboto", sans-serif; }
 .template21-container {
-  white-space: pre-line; font-size: 13px; font-weight: 500; font-family: "Poppins", sans-serif;
+  font-size: 13px; font-weight: 500; font-family: "Poppins", sans-serif;
   display: flex; flex-direction: column; width: 750px; min-height: 1057px; margin: 0;
   border-radius: 10px; background: radial-gradient(circle at 50% 50%, #4f062b, #541132, #721845);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); color: #ffd38c; position: relative; overflow: hidden;
 }
+.template21-container p, .template21-container .contact-content, .template21-container .details { white-space: pre-line; }
 .template21-container .border-box {
   overflow: hidden; min-height: 1032px; height: 100%; margin: 0; position: relative; z-index: 5;
 }
