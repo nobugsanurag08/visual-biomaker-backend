@@ -11,11 +11,12 @@ import { logger } from '../utils/logger';
 
 const router = Router();
 
-/** POST /api/render – body: { templateId: string, formData: EditorFormData }. Returns image/png. */
+/** POST /api/render – body: { templateId: string, formData: EditorFormData, download?: boolean }. Returns image/png. When download!==true, returns optimized/smaller image for preview. */
 router.post('/render', async (req: Request, res: Response) => {
-  const { templateId, formData } = req.body as {
+  const { templateId, formData, download } = req.body as {
     templateId?: string;
     formData?: EditorFormData;
+    download?: boolean;
   };
 
   if (!templateId || typeof templateId !== 'string') {
@@ -37,15 +38,19 @@ router.post('/render', async (req: Request, res: Response) => {
     return;
   }
 
+  const forDownload = download === true;
+
   try {
-    const pngBuffer = await renderTemplateToPng(
+    const { buffer, mimeType } = await renderTemplateToPng(
       normalized,
       profileData,
-      env.port
+      env.port,
+      forDownload
     );
-    res.setHeader('Content-Type', 'image/png');
-    res.setHeader('Content-Disposition', 'inline; filename="biodata.png"');
-    res.send(pngBuffer);
+    const ext = mimeType === 'image/jpeg' ? 'jpg' : 'png';
+    res.setHeader('Content-Type', mimeType);
+    res.setHeader('Content-Disposition', `inline; filename="biodata.${ext}"`);
+    res.send(buffer);
   } catch (err) {
     logger.error('Render failed', err);
     const msg = err instanceof Error ? err.message : String(err);

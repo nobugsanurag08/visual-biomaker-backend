@@ -1,6 +1,7 @@
 import path from 'path';
 import { readFile } from 'fs/promises';
 import puppeteer, { type Browser, type Page } from 'puppeteer';
+import sharp from 'sharp';
 import type { ProfileData } from '../types/editor';
 import {
   getTemplateHtml,
@@ -10,6 +11,8 @@ import {
 import { logger } from '../utils/logger';
 
 const CONTAINER_SELECTOR = '#biodata-container';
+/** Max width for preview image; full size kept when download=true. */
+const PREVIEW_MAX_WIDTH = 1200;
 /** Must match default in formDataToProfileData – when profile uses this, we embed as data URL so it loads without a network request. */
 const DEFAULT_PROFILE_IMAGE_PATH = '/assets/img/profile-pic/profile-pic-9.webp';
 
@@ -24,7 +27,7 @@ async function getDefaultProfileImageDataUrl(): Promise<string> {
 }
 const RENDER_TIMEOUT_MS = 45000; // Allow more time for slow loads / external images
 const IMAGE_LOAD_TIMEOUT_MS = 15000; // Max wait for images before screenshot
-const POST_IMAGE_DELAY_MS = 250; // Extra delay after images to allow paint (reduced from 800ms for faster API response)
+const POST_IMAGE_DELAY_MS = 100; // Minimal delay after images to allow paint
 
 /**
  * Wait for images inside element to load (mirrors FE observeRendering).
@@ -159,15 +162,31 @@ async function embedTemplateAssetsAsDataUrls(html: string): Promise<string> {
   return out;
 }
 
+/** JPEG quality for preview (higher = better look when saving preview). */
+const PREVIEW_JPEG_QUALITY = 93;
+
 /**
- * Render a template with profile data to PNG using Puppeteer.
- * Builds HTML in-process; embeds template assets as data URLs so backgrounds load without network.
+ * Resize and encode as JPEG for preview (much smaller response than PNG).
+ */
+async function compressForPreview(pngBuffer: Buffer): Promise<Buffer> {
+  return sharp(pngBuffer)
+    .resize(PREVIEW_MAX_WIDTH, undefined, { withoutEnlargement: true })
+    .jpeg({ quality: PREVIEW_JPEG_QUALITY })
+    .toBuffer();
+}
+
+export type RenderResult = { buffer: Buffer; mimeType: 'image/png' | 'image/jpeg' };
+
+/**
+ * Render a template with profile data to image using Puppeteer.
+ * When forDownload is true, returns full-size PNG. When false, returns resized JPEG for smaller preview payload.
  */
 export async function renderTemplateToPng(
   templateId: string,
   profileData: ProfileData,
-  port: number
-): Promise<Buffer> {
+  port: number,
+  forDownload: boolean = true
+): Promise<RenderResult> {
   const data: ProfileData = { ...profileData };
   if (data.profileImage === DEFAULT_PROFILE_IMAGE_PATH) {
     data.profileImage = await getDefaultProfileImageDataUrl();
@@ -182,7 +201,6 @@ export async function renderTemplateToPng(
   html = await embedTemplateAssetsAsDataUrls(html);
 
   const origin = `http://127.0.0.1:${port}`;
-  // setContent leaves page at about:blank; rewrite /assets/ so img src (e.g. custom profile image URL) loads.
   const htmlWithAbsoluteUrls = html
     .replace(/(src|href)=(["'])\/(assets\/)/g, `$1=$2${origin}/$3`)
     .replace(/url\((['"]?)\/(assets\/)/g, `url($1${origin}/$2`);
@@ -192,8 +210,11 @@ export async function renderTemplateToPng(
 
   try {
     await page.setDefaultNavigationTimeout(RENDER_TIMEOUT_MS);
+    if (forDownload) {
+      await page.setViewport({ deviceScaleFactor: 2, width: 800, height: 2000 });
+    }
     await page.setContent(htmlWithAbsoluteUrls, {
-      waitUntil: 'load',
+      waitUntil: 'domcontentloaded',
       timeout: RENDER_TIMEOUT_MS,
     });
 
@@ -203,13 +224,18 @@ export async function renderTemplateToPng(
 
     const element = await page.$(CONTAINER_SELECTOR);
     if (!element) throw new Error('Container element not found');
-    const buffer = await element.screenshot({
+    let buffer = await element.screenshot({
       type: 'png',
       omitBackground: false,
     });
     await element.dispose();
     if (!buffer) throw new Error('Screenshot returned empty');
-    return Buffer.from(buffer);
+
+    if (forDownload) {
+      return { buffer: Buffer.from(buffer), mimeType: 'image/png' };
+    }
+    const jpegBuffer = await compressForPreview(Buffer.from(buffer));
+    return { buffer: jpegBuffer, mimeType: 'image/jpeg' };
   } finally {
     await page.close().catch(() => {});
   }
